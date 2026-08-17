@@ -25,6 +25,5 @@ void GameObject::Update() {
 
 void GameObject::Render() {
     SDL_RenderTexture(Game::renderer, objTexture, &srcRect, &destRect);
-
 }
 

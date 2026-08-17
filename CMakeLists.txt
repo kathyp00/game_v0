@@ -14,15 +14,25 @@ add_executable(MyGame
     src/GameObject.h
     src/Map.cpp
     src/Map.h
+    src/ECS/ECS.h
+    src/ECS/Components.h
+    src/ECS/TransformComponent.h
+    src/ECS/SpriteComponent.h
+    src/Vector2D.h
+    src/Vector2D.cpp
 )
 
+## Remove the need of relative path when including file 
+target_include_directories(MyGame PRIVATE 
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
+## make sure the code use updated asset
 add_custom_target(CopyAssets ALL
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     "${CMAKE_CURRENT_SOURCE_DIR}/asset"
     "${CMAKE_CURRENT_BINARY_DIR}/asset"
-    COMMENT "Forcefully updating assets to match source folder..."
 )
-
 add_dependencies(MyGame CopyAssets)
 
 target_compile_options(MyGame PRIVATE "-F${MY_FRAMEWORK_DIR}")

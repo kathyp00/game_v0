@@ -1,23 +1,17 @@
 #include "Game.h"
 #include "TextureManager.h"
-#include "GameObject.h"
 #include "Map.h"
+#include "ECS/Components.h"
+#include "Vector2D.h"
 
-GameObject* player;
-GameObject* enemy;
 Map* map;
-
-
+Manager manager;
 SDL_Renderer* Game::renderer = nullptr;
+auto& player(manager.addEntity());
 
+Game::Game() {}
 
-Game::Game() {
-
-}
-
-Game::~Game() {
-
-}
+Game::~Game() {}
 
 void Game::init(const char* title, int width, int height, bool fullscreen) {
     int flag = fullscreen ? SDL_WINDOW_FULLSCREEN : 0;
@@ -38,9 +32,9 @@ void Game::init(const char* title, int width, int height, bool fullscreen) {
         isRunning = false;
     }
 
-    player = new GameObject("asset/player.png", 0, 0);
-    enemy = new GameObject("asset/enemy.png", 50, 50);
     map = new Map();
+    player.addComponent<TransformComponent>();
+    player.addComponent<SpriteComponent>("asset/player.png");
 }
 
 void Game::handle_events() {
@@ -57,15 +51,18 @@ void Game::handle_events() {
 }
 
 void Game::update() {
-    player->Update();
-    enemy->Update();
+    manager.refresh();
+    manager.update();
+    player.getComponent<TransformComponent>().position.add(Vector2D(5, 0));
+    if (player.getComponent<TransformComponent>().position.x > 400) {
+        player.getComponent<SpriteComponent>().setTex("asset/enemy.png");
+    }
 }
 
 void Game::render() {
     SDL_RenderClear(renderer);
     map->DrawMap();
-    player->Render();
-    enemy->Render();
+    manager.draw();
     SDL_RenderPresent(renderer);
 }
 
