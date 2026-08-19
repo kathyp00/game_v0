@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
-project(LetsMakeGamesSDL3 CXX)
+project(KathyGame CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(MY_FRAMEWORK_DIR "$ENV{HOME}/Documents/sdl_framework")
@@ -14,12 +14,16 @@ add_executable(MyGame
     src/GameObject.h
     src/Map.cpp
     src/Map.h
+    src/Vector2D.h
+    src/Vector2D.cpp
+    src/Collision.h
+    src/Collision.cpp
     src/ECS/ECS.h
     src/ECS/Components.h
     src/ECS/TransformComponent.h
     src/ECS/SpriteComponent.h
-    src/Vector2D.h
-    src/Vector2D.cpp
+    src/ECS/KeyboardController.h
+    src/ECS/ColliderComponent.h
 )
 
 ## Remove the need of relative path when including file 

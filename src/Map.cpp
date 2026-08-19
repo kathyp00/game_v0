@@ -42,6 +42,12 @@ Map::Map() {
     dest.h = src.h * 2;
 }
 
+Map::~Map() {
+    SDL_DestroyTexture(grass);
+    SDL_DestroyTexture(water);
+    SDL_DestroyTexture(dirt);
+}
+
 void Map::LoadMap(int arr[20][25]) {
     std::copy(&arr[0][0], &arr[0][0] + (20 * 25), &map[0][0]);
 }
