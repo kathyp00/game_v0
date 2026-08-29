@@ -1,20 +1,12 @@
 #include "Game.h"
+using namespace std;
 
 class Map {
 
-public:
+public :
     Map();
     ~Map();
 
-    void LoadMap(int arr[20][25]);
-    void DrawMap();
-
-private:
-    SDL_FRect src, dest;
-    SDL_Texture* dirt;
-    SDL_Texture* grass;
-    SDL_Texture* water;
-    
-    int map[20][25];
+    static void loadMap(string path, int sizeX, int sizeY);
 
 };

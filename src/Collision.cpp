@@ -1,4 +1,7 @@
 #include "Collision.h"
+#include "ECS/ColliderComponent.h"
+using namespace std;
+
 
 bool Collision::AABB(const SDL_FRect& recA, const SDL_FRect& recB) {
     if (recA.x + recA.w >= recB.x && 
@@ -7,6 +10,13 @@ bool Collision::AABB(const SDL_FRect& recA, const SDL_FRect& recB) {
         recB.y + recB.h >= recA.y 
     ) {
         return true;
+    }
+    return false;
+}
+
+bool Collision::AABB(const ColliderComponent& colA, const ColliderComponent& colB) {
+    if (AABB(colA.collider, colB.collider)) {
+        return true; 
     }
     return false;
 }

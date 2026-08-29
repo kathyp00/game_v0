@@ -3,7 +3,7 @@
 
 class TransformComponent : public Component {
 
-public:
+public :
     Vector2D position;
     Vector2D velocity;
     int scale = 1;
@@ -13,13 +13,11 @@ public:
     int speed = 3;
 
     TransformComponent() {
-        position.x = 0.0f; 
-        position.y = 0.0f; 
+        position.zero();
     }
 
     TransformComponent(int sc) {
-        position.x = 0.0f; 
-        position.y = 0.0f;
+        position.zero();
         scale = sc;
     }
 

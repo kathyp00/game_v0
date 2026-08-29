@@ -6,7 +6,7 @@ using namespace std;
 
 class Vector2D {
 
-public:
+public :
     float x;
     float y;
     Vector2D();
@@ -25,6 +25,9 @@ public:
     Vector2D& operator-=(const Vector2D& vec);
     Vector2D& operator*=(const Vector2D& vec);
     Vector2D& operator/=(const Vector2D& vec);
+
+    Vector2D& operator*(const float& i);
+    Vector2D& zero(); 
 
     friend ostream& operator<<(ostream& stream, const Vector2D v2);
 };

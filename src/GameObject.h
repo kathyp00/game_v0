@@ -3,14 +3,14 @@
 
 class GameObject {
 
-public:
+public :
     GameObject(const char* texturesheet, float x, float y);
     ~GameObject();
 
-    void Update();
-    void Render();
+    void update();
+    void render();
 
-private:
+private :
     float xpos;
     float ypos;
 

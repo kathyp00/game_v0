@@ -1,11 +1,14 @@
 #pragma once
 #include <string>
 #include <SDL3/SDL.h>
+#include "ECS.h"
+#include "TransformComponent.h"
+#include "Game.h"
 using namespace std;
 
 class ColliderComponent : public Component {
 
-public:
+public :
     SDL_FRect collider;
     string tag;
 
@@ -22,6 +25,7 @@ public:
             entity->addComponent<TransformComponent>();
         }
         transform = &entity->getComponent<TransformComponent>();
+        Game::colliders.push_back(this);
     }
 
     void update() override {

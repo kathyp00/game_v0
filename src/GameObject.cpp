@@ -2,13 +2,13 @@
 #include "TextureManager.h"
 
 GameObject::GameObject(const char* texturesheet, float x, float y) {
-    objTexture = TextureManager::LoadTexture(texturesheet);
+    objTexture = TextureManager::loadTexture(texturesheet);
 
     xpos = x;
     ypos = y;
 }
 
-void GameObject::Update() {
+void GameObject::update() {
 
     xpos++;
     ypos++;
@@ -23,7 +23,7 @@ void GameObject::Update() {
     destRect.h = srcRect.h * 2;
 }
 
-void GameObject::Render() {
+void GameObject::render() {
     SDL_RenderTexture(Game::renderer, objTexture, &srcRect, &destRect);
 }
 

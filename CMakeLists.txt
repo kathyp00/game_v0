@@ -19,16 +19,25 @@ add_executable(MyGame
     src/Collision.h
     src/Collision.cpp
     src/ECS/ECS.h
+    src/ECS/ECS.cpp
     src/ECS/Components.h
     src/ECS/TransformComponent.h
     src/ECS/SpriteComponent.h
     src/ECS/KeyboardController.h
     src/ECS/ColliderComponent.h
+    src/ECS/TileComponent.h
 )
 
 ## Remove the need of relative path when including file 
 target_include_directories(MyGame PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
+## clean previous build
+add_custom_target(CleanPreviousOutputs
+    COMMAND ${CMAKE_COMMAND} -E rm -rf "${CMAKE_CURRENT_BINARY_DIR}/asset"
+    COMMAND ${CMAKE_COMMAND} -E rm -f "${CMAKE_CURRENT_BINARY_DIR}/MyGame${CMAKE_EXECUTABLE_SUFFIX}"
+    COMMENT "Wiping previous build assets and executable..."
 )
 
 ## make sure the code use updated asset
@@ -37,6 +46,8 @@ add_custom_target(CopyAssets ALL
     "${CMAKE_CURRENT_SOURCE_DIR}/asset"
     "${CMAKE_CURRENT_BINARY_DIR}/asset"
 )
+
+add_dependencies(CopyAssets CleanPreviousOutputs)
 add_dependencies(MyGame CopyAssets)
 
 target_compile_options(MyGame PRIVATE "-F${MY_FRAMEWORK_DIR}")
