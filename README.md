@@ -10,3 +10,6 @@ I'm working in VS code so I just hit the build/run button, but the cmd is below.
 
 To Build : `path_to_your_cmake_binary --build path_to_your_working_dir -j `\
 To Run : `./build/name_of_your_executable`
+
+## Snapshot
+<img width="393" height="316" alt="Screenshot" src="https://github.com/user-attachments/assets/d6620a85-18e1-4c8b-b025-f022f97b021f" />
