@@ -17,7 +17,8 @@ public :
     }
 
     TransformComponent(int sc) {
-        position.zero();
+        position.x = 400;
+        position.y = 320;
         scale = sc;
     }
 
@@ -37,5 +38,6 @@ public :
     void update() override {
         position.x += velocity.x * speed;
         position.y += velocity.y * speed;
+
     }
 };

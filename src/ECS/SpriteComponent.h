@@ -55,8 +55,8 @@ public :
             srcRect.x = srcRect.w * ((SDL_GetTicks() / speed) % frames);
         }
         srcRect.y = animIndex * transform->height;
-        destRect.x = transform->position.x;
-        destRect.y = transform->position.y;
+        destRect.x = transform->position.x - Game::camera.x;
+        destRect.y = transform->position.y - Game::camera.y;
         destRect.w = transform->width * transform->scale; 
         destRect.h = transform->height * transform->scale;
     }

@@ -10,7 +10,11 @@ Map* gmap;
 Manager manager;
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
+SDL_FRect Game::camera = {0, 0, 800, 600};
+
 vector<ColliderComponent*> Game::colliders;
+
+bool Game::isRunning = false;
 
 auto& player(manager.addEntity());
 auto& wall(manager.addEntity());
@@ -24,6 +28,10 @@ enum groupLabels : size_t {
     groupColliders
 };
 
+
+auto& tiles(manager.getGroup(groupMap));
+auto& players(manager.getGroup(groupPlayers));
+auto& enemies(manager.getGroup(groupEnemies));
 
 Game::Game() {}
 
@@ -75,15 +83,12 @@ void Game::update() {
     manager.refresh();
     manager.update();
 
-    for (auto cc : colliders) {
-        Collision::AABB(player.getComponent<ColliderComponent>(), *cc);
-    }
+    camera.x = player.getComponent<TransformComponent>().position.x - 400;
+    camera.y = player.getComponent<TransformComponent>().position.y - 300;
+
+    camera.x = (camera.x < 0) ? 0 : ((camera.x > camera.w) ? camera.w : camera.x);
+    camera.y = (camera.y < 0) ? 0 : ((camera.y > camera.h) ? camera.h : camera.y);
 }
-
-auto& tiles(manager.getGroup(groupMap));
-auto& players(manager.getGroup(groupPlayers));
-auto& enemies(manager.getGroup(groupEnemies));
-
 
 void Game::render() {
     SDL_RenderClear(renderer);

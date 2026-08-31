@@ -1,5 +1,5 @@
 ## Introduction
-This repo is for storing the work I did while following [Carl Birch's tutorial](https://youtube.com/playlist?list=PLhfAbcv9cehhkG7ZQK0nfIGJC_C-wSLrx&si=6KnL3NyldwwG1mAr) on youtube.</br>I used [Piskel](https://www.piskelapp.com/) to draw the graphics and [LDtk](https://ldtk.io/) for map.
+This repo is for storing the work I did while following [Carl Birch's tutorial](https://youtube.com/playlist?list=PLhfAbcv9cehhkG7ZQK0nfIGJC_C-wSLrx&si=6KnL3NyldwwG1mAr) on youtube.
 
 ## Prerequisite
 You'll need to download the following libraries and keep all the *.framework (it's under *.xcframework/your_os_type/) folders together in one place.\
@@ -11,5 +11,5 @@ I use Visual Studio code as my IDE. Make sure you change the path (sdl framework
 To Build : `path_to_your_cmake_binary --build path_to_your_working_dir -j `\
 To Run : `./build/name_of_your_executable`
 
-## Snapshot
+## Current Snapshot
 <img width="393" height="316" alt="Screenshot" src="https://github.com/user-attachments/assets/d6620a85-18e1-4c8b-b025-f022f97b021f" />

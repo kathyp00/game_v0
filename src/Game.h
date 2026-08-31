@@ -26,7 +26,9 @@ public :
     static SDL_Renderer* renderer;
     static SDL_Event event;
     static vector<ColliderComponent*> colliders;
+    static bool isRunning;
+    static SDL_FRect camera;
+
 private :
-    bool isRunning;
     SDL_Window* window;
 };

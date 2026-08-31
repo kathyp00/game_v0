@@ -11,11 +11,11 @@ class Component;
 class Entity;
 class Manager;
 
+using ComponentID = size_t;
+using Group = size_t;
 
 // these two inline function is for compile-time ID generation
 // assign a unique ID to every type T
-using ComponentID = size_t;
-using Group = size_t;
 inline ComponentID getUniqueComponentTypeID() noexcept {
     static ComponentID lastID = 0u;
     return lastID++;
