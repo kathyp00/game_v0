@@ -18,6 +18,8 @@ add_executable(MyGame
     src/Vector2D.cpp
     src/Collision.h
     src/Collision.cpp
+    src/AssetManager.h
+    src/AssetManager.cpp
     src/ECS/ECS.h
     src/ECS/ECS.cpp
     src/ECS/Components.h
@@ -26,6 +28,7 @@ add_executable(MyGame
     src/ECS/KeyboardController.h
     src/ECS/ColliderComponent.h
     src/ECS/TileComponent.h
+    src/ECS/ProjectileComponent.h
 )
 
 ## Remove the need of relative path when including file 

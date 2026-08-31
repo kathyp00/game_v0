@@ -7,6 +7,7 @@
 #include <vector>
 using namespace std;
 
+class AssetManager;
 class ColliderComponent;
 
 class Game {
@@ -22,12 +23,18 @@ public :
     void clean();
     bool running() { return isRunning; }
 
-    static void addTile(float srcX, float srcY, float xpos, float ypos);
     static SDL_Renderer* renderer;
     static SDL_Event event;
-    static vector<ColliderComponent*> colliders;
     static bool isRunning;
     static SDL_FRect camera;
+    static AssetManager* assets;
+
+    enum groupLabels : size_t {
+        groupMap,
+        groupPlayers,
+        groupColliders,
+        groupProjectiles
+    };
 
 private :
     SDL_Window* window;

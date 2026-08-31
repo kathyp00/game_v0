@@ -2,7 +2,9 @@
 #include <SDL3/SDL.h>
 #include <TextureManager.h>
 #include "Animation.h"
+#include "AssetManager.h"
 #include <map>
+using namespace std;
 
 class SpriteComponent : public Component {
 
@@ -24,22 +26,21 @@ public :
     SpriteComponent(const char* path) {
         setTex(path);
     }
-    SpriteComponent(const char* path, bool isAnimated) {
+    SpriteComponent(string id, bool isAnimated) {
         animated = isAnimated;
         Animation idle = Animation(0, 3, 100);
         Animation walk = Animation(1, 8, 100);
         animations.emplace("idle", idle);
         animations.emplace("walk", walk);
         play("idle");
-        setTex(path);
+        setTex(id);
     }
 
     ~SpriteComponent() {
-        SDL_DestroyTexture(texture);
     }
 
-    void setTex(const char* path) {
-        texture = TextureManager::loadTexture(path); 
+    void setTex(string id) {
+        texture = Game::assets->getTexture(id);
     }
 
     void init() override {

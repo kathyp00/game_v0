@@ -4,34 +4,19 @@
 #include "ECS/Components.h"
 #include "Vector2D.h"
 #include "Collision.h"
+#include "AssetManager.h"
 
 
 Map* gmap;
 Manager manager;
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
-SDL_FRect Game::camera = {0, 0, 800, 600};
+SDL_FRect Game::camera = {0, 0, 800, 640};
 
-vector<ColliderComponent*> Game::colliders;
+AssetManager* Game::assets = new AssetManager(&manager);
 
 bool Game::isRunning = false;
-
 auto& player(manager.addEntity());
-auto& wall(manager.addEntity());
-
-const char* mapfile = "asset/merge.png";
-
-enum groupLabels : size_t {
-    groupMap,
-    groupPlayers,
-    groupEnemies,
-    groupColliders
-};
-
-
-auto& tiles(manager.getGroup(groupMap));
-auto& players(manager.getGroup(groupPlayers));
-auto& enemies(manager.getGroup(groupEnemies));
 
 Game::Game() {}
 
@@ -56,16 +41,30 @@ void Game::init(const char* title, int width, int height, bool fullscreen) {
         isRunning = false;
     }
 
-    gmap = new Map();
-    Map::loadMap("asset/level0.map", 16, 16);
+    assets->addTexture("terrain", "asset/terrain_ss.png");
+    assets->addTexture("player", "asset/player_anims.png");
+    assets->addTexture("projectile", "asset/proj.png");
+
+    gmap = new Map("terrain", 3, 32);
+    gmap->loadMap("asset/map.map", 25, 20);
     
-    player.addComponent<TransformComponent>(4);
-    player.addComponent<SpriteComponent>("asset/player_anims.png", true);
+    player.addComponent<TransformComponent>(800.0f, 640.0f, 32 , 32, 4);
+    player.addComponent<SpriteComponent>("player", true);
     player.addComponent<KeyboardController>();
     player.addComponent<ColliderComponent>("player");
     player.addGroup(groupPlayers);
 
+    assets->createProjectile(Vector2D(600, 600), Vector2D(2, 0), 200, 2, "projectile");
+    assets->createProjectile(Vector2D(600, 620), Vector2D(2, 0), 200, 2, "projectile");
+    assets->createProjectile(Vector2D(400, 600), Vector2D(2, 1), 200, 2, "projectile");
+    assets->createProjectile(Vector2D(600, 600), Vector2D(2, -1), 200, 2, "projectile");
+
 }
+
+auto& tiles(manager.getGroup(Game::groupMap));
+auto& players(manager.getGroup(Game::groupPlayers));
+auto& colliders(manager.getGroup(Game::groupColliders));
+auto& projectiles(manager.getGroup(Game::groupProjectiles));
 
 void Game::handleEvents() {
     SDL_PollEvent(&event);
@@ -73,18 +72,33 @@ void Game::handleEvents() {
         case SDL_EVENT_QUIT:
             isRunning = false;
             break;
-        
         default:
             break;
     }
 }
 
 void Game::update() {
+    SDL_FRect playerCol = player.getComponent<ColliderComponent>().collider;
+    Vector2D playerPos = player.getComponent<TransformComponent>().position;
+
     manager.refresh();
     manager.update();
 
+    for (auto& c : colliders) {
+        SDL_FRect cCol = c->getComponent<ColliderComponent>().collider;
+        if (Collision::AABB(cCol, playerCol)) {
+            player.getComponent<TransformComponent>().position = playerPos;
+        }
+    }
+
+    for(auto& p : projectiles) {
+        if (Collision::AABB(player.getComponent<ColliderComponent>().collider, p->getComponent<ColliderComponent>().collider)) {
+            p->destroy();
+        }
+    }
+
     camera.x = player.getComponent<TransformComponent>().position.x - 400;
-    camera.y = player.getComponent<TransformComponent>().position.y - 300;
+    camera.y = player.getComponent<TransformComponent>().position.y - 320;
 
     camera.x = (camera.x < 0) ? 0 : ((camera.x > camera.w) ? camera.w : camera.x);
     camera.y = (camera.y < 0) ? 0 : ((camera.y > camera.h) ? camera.h : camera.y);
@@ -95,11 +109,14 @@ void Game::render() {
     for (auto& t : tiles) {
         t->draw();
     }
+    for (auto& c : colliders) {
+        c->draw();
+    }
     for (auto& p : players) {
         p->draw();
     }
-    for (auto& e : enemies) {
-        e->draw();
+    for (auto& p : projectiles) {
+        p->draw();
     }
     SDL_RenderPresent(renderer);
 }
@@ -109,10 +126,4 @@ void Game::clean() {
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
     cout << "game cleaned" << endl;
-}
-
-void Game::addTile(float srcX, float srcY, float xpos, float ypos) {
-    auto& tile(manager.addEntity());
-    tile.addComponent<TileComponent>(srcX, srcY, xpos, ypos, mapfile);
-    tile.addGroup(groupMap);
 }
