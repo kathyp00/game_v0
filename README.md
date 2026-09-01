@@ -5,10 +5,10 @@ It was a fun learning exercise and I really enjoyed it.
 ## Getting Started
 The following libraries are required.
 
-`sdl3, sdl3_ttf, sdl3_mixer, sdl3_image`
+`sdl3, sdl3_image`
 
 ## Test & Run
-Make sure to update the framework path in CMakeLists.txt before compiling.
+Make sure to update the framework path (the folder that stores all the downloaded *.framework files) in CMakeLists.txt before compiling.
 
 To Build : `path_to_your_cmake_binary --build path_to_your_working_dir -j `\
 To Run : `./build/name_of_your_executable`
