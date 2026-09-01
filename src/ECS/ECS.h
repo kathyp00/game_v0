@@ -31,7 +31,6 @@ constexpr size_t maxGroups = 32;
 
 using ComponentBitSet = bitset<maxComponents>;
 using GroupBitSet = bitset<maxGroups>;
-
 using ComponentArray = array<Component*, maxComponents>;
 
 class Component {
@@ -100,13 +99,9 @@ private :
     array<vector<Entity*>, maxGroups> groupedEntities;
 
 public :
-    void update() {
-        for (auto& e : entities) e->update();
-    }
+    void update() { for (auto& e : entities) e->update(); }
 
-    void draw() {
-        for (auto& e : entities) e->draw();
-    }
+    void draw() { for (auto& e : entities) e->draw(); }
 
     // move all the active one to the front
     // the iterator eventually point to the first inactive one

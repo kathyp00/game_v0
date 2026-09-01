@@ -23,9 +23,7 @@ public :
     SDL_FlipMode spriteFlip = SDL_FLIP_NONE;
 
     SpriteComponent() = default;
-    SpriteComponent(const char* path) {
-        setTex(path);
-    }
+    SpriteComponent(const char* path) { setTex(path); }
     SpriteComponent(string id, bool isAnimated) {
         animated = isAnimated;
         Animation idle = Animation(0, 3, 100);
@@ -36,8 +34,7 @@ public :
         setTex(id);
     }
 
-    ~SpriteComponent() {
-    }
+    ~SpriteComponent() {}
 
     void setTex(string id) {
         texture = Game::assets->getTexture(id);

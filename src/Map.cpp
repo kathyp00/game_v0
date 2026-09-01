@@ -13,8 +13,7 @@ Map::Map(string tID, int ms, int ts) : textID(tID), mapScale(ms), tileSize(ts) {
     scaledSize = ms * ts;
 }
 
-Map::~Map() {
-}
+Map::~Map() {}
 
 void Map::loadMap(string path, int sizeX, int sizeY) {
     char c;

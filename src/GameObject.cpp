@@ -3,13 +3,11 @@
 
 GameObject::GameObject(const char* texturesheet, float x, float y) {
     objTexture = TextureManager::loadTexture(texturesheet);
-
     xpos = x;
     ypos = y;
 }
 
 void GameObject::update() {
-
     xpos++;
     ypos++;
     srcRect.h = 32.0f;

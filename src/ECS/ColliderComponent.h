@@ -30,14 +30,13 @@ public :
         collider.h = collider.w = size;
     }
 
-
     void init() override {
         if (!entity->hasComponent<TransformComponent>()) {
             entity->addComponent<TransformComponent>();
         }
         transform = &entity->getComponent<TransformComponent>();
         tex = TextureManager::loadTexture("asset/coltex.png");
-        srcR = {0, 0, 32, 32};
+        srcR = {0.0f, 0.0f, height, width};
         destR = { collider.x, collider.y, collider.w, collider.h};
         
     }

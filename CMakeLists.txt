@@ -22,7 +22,6 @@ add_executable(MyGame
     src/AssetManager.cpp
     src/ECS/ECS.h
     src/ECS/ECS.cpp
-    src/ECS/Components.h
     src/ECS/TransformComponent.h
     src/ECS/SpriteComponent.h
     src/ECS/KeyboardController.h

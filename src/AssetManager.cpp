@@ -1,15 +1,12 @@
 #include "AssetManager.h"
-
 #include "ECS/TransformComponent.h"
 #include "ECS/SpriteComponent.h"
 #include "ECS/ProjectileComponent.h"
+#include "ECS/ColliderComponent.h"
 
-AssetManager::AssetManager(Manager* man) : manager(man) {
+AssetManager::AssetManager(Manager* man) : manager(man) {}
 
-}
-
-AssetManager::~AssetManager() {
-}
+AssetManager::~AssetManager() {}
 
 void AssetManager::createProjectile(Vector2D pos, Vector2D val, int range, int speed, string id) {
     auto& projectile(manager->addEntity());
@@ -23,7 +20,6 @@ void AssetManager::createProjectile(Vector2D pos, Vector2D val, int range, int s
 
 void AssetManager::addTexture(string id, const char* path) {
     texture.emplace(id, TextureManager::loadTexture(path));
-
 }
 
 SDL_Texture* AssetManager::getTexture(string id) {

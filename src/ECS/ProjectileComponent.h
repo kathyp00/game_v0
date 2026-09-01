@@ -2,7 +2,7 @@
 
 #include "ECS.h"
 #include "Vector2D.h"
-#include "Components.h"
+#include "TransformComponent.h"
 
 class ProjectileComponent : public Component {
 

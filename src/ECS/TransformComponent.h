@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector2D.h"
+#include "ECS.h"
 
 class TransformComponent : public Component {
 
@@ -9,7 +10,6 @@ public :
     int scale = 1;
     float width = 32.0f;
     float height = 32.0f;
-
     int speed = 3;
 
     TransformComponent() {
